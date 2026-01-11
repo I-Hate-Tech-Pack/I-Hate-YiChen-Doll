@@ -1,0 +1,441 @@
+package github.ihatechpack.yichendoll.common.entity;
+
+import github.ihatechpack.yichendoll.common.item.DollEntityItem;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerEntity;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.monster.Phantom;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.fluids.FluidType;
+import org.joml.Vector3f;
+
+import javax.annotation.Nullable;
+/**
+ * @description: TODO
+ * @author: HowXu
+ * @date: 2025/9/12 18:26
+ */
+public class DollEntity extends Entity {
+    private static final EntityDataAccessor<BlockState> DATA_BLOCK_STATE = SynchedEntityData.defineId(DollEntity.class, EntityDataSerializers.BLOCK_STATE);
+    private static final EntityDataAccessor<Vector3f> DATA_SCALE = SynchedEntityData.defineId(DollEntity.class, EntityDataSerializers.VECTOR3);
+    private static final EntityDataAccessor<Vector3f> DATA_TRANSLATION = SynchedEntityData.defineId(DollEntity.class, EntityDataSerializers.VECTOR3);
+
+    public static final String TAG_BLOCK_STATE = "doll_block_state";
+    private static final String TAG_SCALE = "doll_scale";
+    private static final String TAG_TRANSLATION = "doll_translation";
+    private static final String TAG_DROP_FROM_PHANTOM = "drop_from_phantom";
+    private static final String TAG_DROP_FROM_PHANTOM_TIME = "drop_from_phantom_time";
+
+    private boolean inThrowing = false;
+    private long bounceTime = 0;
+    
+    /**
+     * 用于碰撞击退的计数器，防止无限制左脚踩右脚上天
+     */
+    private int knockbackCount = 0;
+    private int lastKnockbackTick = 0;
+
+    public DollEntity(EntityType<?> entityType, Level level) {
+        super(entityType, level);
+        this.refreshDimensions();
+    }
+
+    public DollEntity(Level level, double x, double y, double z, float yaw) {
+        this(ModEntities.DOLL.get(), level);
+        this.setPos(x, y, z);
+        this.setYRot(yaw);
+    }
+
+    @Override
+    public void tick() {
+        // 调用父类的基础 tick 逻辑
+        super.tick();
+
+        if (this.onGround() || this.isInWater() || this.isInLava()) {
+            // 如果在地面、水中或岩浆中，重置丢出状态
+            this.inThrowing = false;
+        } else if (this.getVehicle() == null && this.getPassengers().isEmpty() && this.getDeltaMovement().length() > 0.5) {
+            // 如果没有乘坐其他实体且有足够速度，附加 360 度托马斯大回旋
+            float rotationSpeed = Mth.randomBetween(level().random, 3, 5);
+            // 随机方向
+            float yRotSpeed = this.getUUID().getLeastSignificantBits() % 2 == 0 ? rotationSpeed : -rotationSpeed;
+            float xRotSpeed = this.getUUID().getMostSignificantBits() % 2 == 0 ? rotationSpeed : -rotationSpeed;
+            this.setYRot((this.getYRot() + yRotSpeed) % 360);
+            this.setXRot((this.getXRot() + xRotSpeed) % 360);
+        }
+
+        if (this.inThrowing && this.level() instanceof ServerLevel serverLevel) {
+            // 渲染丢出去的拖尾粒子
+            serverLevel.sendParticles(ParticleTypes.GLOW, this.getX(), this.getY() + 0.25, this.getZ(),
+                    3, 0.1, 0.1, 0.1, 0.2);
+        }
+
+        // 碰撞击退检测
+        // 仅在 2 tick 后开始检测，避免初始时触碰到丢玩偶的玩家
+        if (tickCount > 2) {
+            this.checkCollisionKnockback();
+        }
+
+        // 记录上一刻的位置（用于插值渲染）
+        this.xo = this.getX();
+        this.yo = this.getY();
+        this.zo = this.getZ();
+
+        // 获取当前位置的最高流体类型和运动向量
+        FluidType fluidType = this.getMaxHeightFluidType();
+        Vec3 movement = this.getDeltaMovement();
+        // 流体影响高度
+        double fluidHeight = 1.0E-5;
+        // 流体中的运动逻辑
+        if (!fluidType.isAir() && this.getFluidTypeHeight(fluidType) > fluidHeight) {
+            // 流体摩擦阻力，岩浆阻力更大
+            double frictionFactor = this.isInLava() ? 0.9 : 0.95;
+            // 轻微上浮力
+            double floatingFactor = movement.y < 0.06 ? 5.0E-4 : 0;
+            this.setDeltaMovement(movement.x * frictionFactor, movement.y + floatingFactor, movement.z * frictionFactor);
+        } else if (!this.isNoGravity()) {
+            // 不在流体中且有重力时，应用重力
+            this.setDeltaMovement(movement.add(0, -0.04, 0));
+        }
+
+        // 移动和摩擦力处理
+        // 不在地面、有速度或每 4 tick 强制更新
+        if (!this.onGround() || this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 || (this.tickCount + this.getId()) % 4 == 0) {
+            // 执行移动
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            // 默认摩擦系数
+            double frictionFactor = 0.98;
+            if (this.onGround()) {
+                // 在地面时使用地面方块的摩擦系数
+                BlockPos groundPos = getBlockPosBelowThatAffectsMyMovement();
+                frictionFactor = this.level().getBlockState(groundPos).getFriction(level(), groundPos, this) * 0.98;
+            }
+            // 应用摩擦力（水平和垂直分别处理）
+            this.setDeltaMovement(this.getDeltaMovement().multiply(frictionFactor, 0.98, frictionFactor));
+            // 落地弹跳效果
+            if (this.onGround()) {
+                Vec3 bounceMovement = this.getDeltaMovement();
+                if (bounceMovement.y < 0) {
+                    // Y 速度反向减半
+                    this.setDeltaMovement(bounceMovement.multiply(1, -0.5, 1));
+                }
+            }
+        }
+
+        // 水流推动检测
+        
+        this.hasImpulse |= this.updateInWaterStateAndDoFluidPushing();
+        
+
+        // 服务端检查运动变化（用于网络同步）
+        if (!this.level().isClientSide) {
+            double movementDelta = this.getDeltaMovement().subtract(movement).lengthSqr();
+            if (movementDelta > 0.01D) {
+                // 标记需要同步给客户端
+                this.hasImpulse = true;
+            }
+        }
+    }
+
+    public boolean canSurvives() {
+        if (!this.level().noCollision(this)) {
+            return false;
+        }
+        return this.level().getEntities(this, this.getBoundingBox(), e -> e instanceof DollEntity).isEmpty();
+    }
+
+    @Override
+    public InteractionResult interact(Player player, InteractionHand hand) {
+        ItemStack itemStack = player.getItemInHand(hand);
+
+        long time = this.bounceTime - System.currentTimeMillis();
+        if (time > 0) {
+            return InteractionResult.PASS;
+        }
+        this.bounceTime = System.currentTimeMillis() + 500;
+        if (player.level() instanceof ServerLevel serverLevel) {
+            RandomSource randomSource = serverLevel.getRandom();
+            float pitch = 0.75f + randomSource.nextFloat() * 0.5f;
+            // this.playSound(ModSounds.DUCK_TOY.get(), 1, pitch);
+
+            Vec3 notePos = this.position().add(
+                    randomSource.nextFloat() / 2 - 0.25,
+                    1 + randomSource.nextFloat() / 5,
+                    randomSource.nextFloat() / 2 - 0.25
+            );
+            float color = randomSource.nextInt(4) / 24.0F;
+            serverLevel.sendParticles(ParticleTypes.NOTE, notePos.x(), notePos.y(), notePos.z(), 0, color, 0, 0, 1);
+
+            return InteractionResult.SUCCESS;
+        }
+        return InteractionResult.PASS;
+    }
+
+    @Override
+    protected MovementEmission getMovementEmission() {
+        return MovementEmission.NONE;
+    }
+
+    @Override
+    public BlockPos getBlockPosBelowThatAffectsMyMovement() {
+        return this.getOnPos(0.999999F);
+    }
+
+    @Override
+    public boolean shouldRenderAtSqrDistance(double pDistance) {
+        return pDistance < 128 * 128;
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (this.isInvulnerableTo(source)) {
+            return false;
+        } else {
+            // 必须是玩家直接造成的伤害才能打掉
+            if (!this.isRemoved() && !this.level().isClientSide && source.getDirectEntity() instanceof Player) {
+                this.kill();
+                this.markHurt();
+                this.dropItem(source.getEntity());
+                return true;
+            }
+            return false;
+        }
+    }
+
+    private void dropItem(@Nullable Entity pBrokenEntity) {
+        if (this.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+            this.playSound(SoundEvents.WOOL_BREAK, 1.0F, 1.0F);
+            if (pBrokenEntity instanceof Player player) {
+                if (player.getAbilities().instabuild) {
+                    return;
+                }
+            }
+            ItemStack dollItem = DollEntityItem.createItemWithEntity(this);
+            this.spawnAtLocation(dollItem);
+        }
+    }
+
+    @Override
+    public boolean canBeCollidedWith() {
+        return true;
+    }
+
+    @Override
+    public boolean isPickable() {
+        return true;
+    }
+
+    @Override
+    public void rideTick() {
+        super.rideTick();
+        if (this.getVehicle() instanceof Phantom phantom) {
+            this.setXRot(-phantom.getXRot());
+        }
+    }
+
+    /*@Override needn't
+    public double getMyRidingOffset() {
+        if (this.getVehicle() instanceof Phantom) {
+            return 0.125;
+        }
+        return 0.3125;
+    }*/
+
+    @Override
+    public @Nullable ItemStack getPickResult() {
+        return DollEntityItem.createItemWithEntity(this);
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(DATA_BLOCK_STATE, Blocks.AIR.defaultBlockState());
+        builder.define(DATA_SCALE, new Vector3f(1.0f));
+        builder.define(DATA_TRANSLATION, new Vector3f());
+    }
+
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
+        if (DATA_SCALE.equals(pKey)) {
+            this.refreshDimensions();
+        }
+        super.onSyncedDataUpdated(pKey);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        if (tag.contains(TAG_BLOCK_STATE)) {
+            HolderLookup<Block> lookup = this.level().holderLookup(Registries.BLOCK);
+            setDisplayBlockState(NbtUtils.readBlockState(lookup, tag.getCompound(TAG_BLOCK_STATE)));
+        }
+        if (tag.contains(TAG_SCALE)) {
+            setDisplayScale(readVector3f(tag.getCompound(TAG_SCALE)));
+        }
+        if (tag.contains(TAG_TRANSLATION)) {
+            setDisplayTranslation(readVector3f(tag.getCompound(TAG_TRANSLATION)));
+        }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        BlockState blockState = getDisplayBlockState();
+        if (blockState != Blocks.AIR.defaultBlockState()) {
+            tag.put(TAG_BLOCK_STATE, NbtUtils.writeBlockState(blockState));
+        }
+        tag.put(TAG_SCALE, writeVector3f(getDisplayScale()));
+        tag.put(TAG_TRANSLATION, writeVector3f(getDisplayTranslation()));
+    }
+
+    public void removePhantomRecord(CompoundTag tag) {
+        tag.remove(TAG_DROP_FROM_PHANTOM);
+        tag.remove(TAG_DROP_FROM_PHANTOM_TIME);
+    }
+
+    private Vector3f readVector3f(CompoundTag tag) {
+        return new Vector3f(tag.getFloat("x"), tag.getFloat("y"), tag.getFloat("z"));
+    }
+
+    private CompoundTag writeVector3f(Vector3f vector) {
+        CompoundTag tag = new CompoundTag();
+        tag.putFloat("x", vector.x);
+        tag.putFloat("y", vector.y);
+        tag.putFloat("z", vector.z);
+        return tag;
+    }
+
+    public BlockState getDisplayBlockState() {
+        return this.entityData.get(DATA_BLOCK_STATE);
+    }
+
+    public void setDisplayBlockState(BlockState blockState) {
+        this.entityData.set(DATA_BLOCK_STATE, blockState);
+    }
+
+    public Vector3f getDisplayScale() {
+        return this.entityData.get(DATA_SCALE);
+    }
+
+    public void setDisplayScale(Vector3f scale) {
+        this.entityData.set(DATA_SCALE, scale, true);
+    }
+
+    public Vector3f getDisplayTranslation() {
+        return this.entityData.get(DATA_TRANSLATION);
+    }
+
+    public void setDisplayTranslation(Vector3f translation) {
+        this.entityData.set(DATA_TRANSLATION, translation, true);
+    }
+
+    // needn't
+//    @Override
+//    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
+//        return NetworkHooks.getEntitySpawningPacket(this);
+//    }
+    
+    public long getBounceTime() {
+        return bounceTime;
+    }
+
+    @Override
+    public void setRot(float yRot, float xRot) {
+        super.setRot(yRot, xRot);
+    }
+
+    @Override
+    public EntityDimensions getDimensions(Pose pose) {
+        Vector3f displayScale = this.getDisplayScale();
+        EntityDimensions dimensions = super.getDimensions(pose);
+        float width = Math.max(Math.abs(displayScale.x), Math.abs(displayScale.z));
+        float height = Math.abs(displayScale.y);
+        return dimensions.scale(width, height);
+    }
+
+    private void checkCollisionKnockback() {
+        // 仅在服务器端进行击退处理
+        if (this.level().isClientSide) {
+            return;
+        }
+
+        // 获取玩偶当前速度
+        Vec3 dollVelocity = this.getDeltaMovement();
+        double dollSpeed = dollVelocity.length();
+
+        // 只有当玩偶速度达到 0.25 以上时才进行击退检测
+        if (dollSpeed < 0.25) {
+            return;
+        }
+
+        // 每次击退后增加计数器，最多允许击退 5 次，之后需要玩偶停下来重置
+        if (this.knockbackCount >= 5) {
+            // 记录最后的碰撞 tick，用来重置计数器
+            if (this.tickCount - this.lastKnockbackTick > 20) {
+                this.knockbackCount = 0;
+            }
+            this.lastKnockbackTick = this.tickCount;
+            return;
+        }
+
+        // 检查与玩偶碰撞的实体
+        for (Entity entity : this.level().getEntities(this, this.getBoundingBox().inflate(0.2),
+                e -> e != this && e.isAlive() && e.isPickable())) {
+            // 计算从玩偶到目标实体的方向向量
+            Vec3 knockbackDirection = this.getDeltaMovement().normalize();
+
+            // 击退强度基于玩偶的速度和玩偶的大小
+            // 玩偶越大击退效果越差
+            double sizeNumber = 0.75 / Math.max(this.getBbWidth(), this.getBbHeight());
+            double knockbackStrength = Math.min(dollSpeed * 0.4, 1)
+                    * Math.min(sizeNumber * sizeNumber, 1);
+
+            // 计算击退向量，保持一定的垂直分量
+            Vec3 knockbackVector = new Vec3(
+                    knockbackDirection.x * knockbackStrength,
+                    Math.max(0.2, knockbackDirection.y * knockbackStrength * 0.5),
+                    knockbackDirection.z * knockbackStrength
+            );
+
+            // 应用击退效果
+            Vec3 speed = entity.getDeltaMovement().add(knockbackVector);
+            // 限制最大速度，防止过快，我们依据玩偶大小做最大速度限制
+            double maxSpeed = Math.min(sizeNumber * sizeNumber, 1);
+            if (speed.length() > maxSpeed) {
+                speed = speed.normalize().scale(maxSpeed);
+            }
+
+            entity.setDeltaMovement(speed);
+            entity.hasImpulse = true;
+            this.knockbackCount++;
+
+            // 生成击中粒子效果
+            if (this.level() instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(ParticleTypes.CRIT,
+                        entity.getX(), entity.getY() + entity.getBbHeight() * 0.5, entity.getZ(),
+                        5, 0.2, 0.2, 0.2, 0.1);
+            }
+        }
+    }
+}

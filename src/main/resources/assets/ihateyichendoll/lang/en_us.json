@@ -1,0 +1,268 @@
+{
+  "item_group.yichen_ovo.name": "全网最尊重科技佬的直播间",
+
+  "config.jade.plugin_yichenovo.doll_block": "方块玩偶",
+  "config.jade.plugin_yichenovo.doll_entity": "实体玩偶",
+  "subtitle.yichenovo.block.duck_toy": "玩偶声音",
+  "subtitle.yichenovo.block.bsxlyyq": "我绷不住了兄弟",
+
+  "subtitle.yichenovo.block.dgd": "你懂个蛋",
+  "subtitle.yichenovo.block.bzl": "俺不中勒",
+  "subtitle.yichenovo.block.dislike": "我讨厌你",
+
+  "subtitle.yichenovo.block.wa": "哥的冷酷 零下八度",
+  "subtitle.yichenovo.block.lz": "凡王之血 必以剑终",
+  "subtitle.yichenovo.record.sweet": "女巫跳舞可爱捏 ->_<-",
+  "subtitle.yichenovo.record.kkx.love": "恋爱循环卡卡西限定",
+  "subtitle.yichenovo.record.kkx.frx": "发如雪卡卡西限定",
+  "subtitle.yichenovo.record.kkx.sad": "名字太长反正是卡卡西限定",
+
+  "subtitle.yichenovo.item.dan": "喝喝喝喝喝喝喝不死你",
+  "subtitle.yichenovo.xcy.dchen": "下车摇-谶",
+  "subtitle.yichenovo.xcy.gotopark": "下车摇-空巷",
+
+  "subtitle.yichenovo.video.bgm": "女巫跳舞的背景音乐来咯",
+
+  "block.yichen_ovo.doll.yichen_mm": "忆宸OVO",
+  "tooltip.yichenovo.doll.yichen_mm.tip1": "女巫？？！！女巫你个蛋女巫！！",
+  "tooltip.yichenovo.doll.yichen_mm.tip2": "一群冷漠的科技佬！叉出去！！",
+  "tooltip.yichenovo.doll.yichen_mm.tip3": "感谢关注忆宸OVO喵喵喵",
+
+  "block.yichen_ovo.doll.yichen_dan": "忆宸OVO",
+  "tooltip.yichenovo.doll.yichen_dan.tip1": "蛋版",
+  "tooltip.yichenovo.doll.yichen_dan.tip2": "你给我做个蛋？？！！",
+
+  "block.yichen_ovo.doll.yichen_nvwu": "忆宸OVO",
+  "tooltip.yichenovo.doll.yichen_nvwu.tip1": "女巫版",
+  "tooltip.yichenovo.doll.yichen_nvwu.tip2": "0人发现左手上拿的是忘本n_n",
+
+  "block.yichen_ovo.doll.yichen_nvpu": "忆宸OVO",
+  "tooltip.yichenovo.doll.yichen_nvpu.tip1": "女仆(服务员)版",
+  "tooltip.yichenovo.doll.yichen_nvpu.tip2": "再二创给情绪叉出去！！！",
+
+  "block.yichen_ovo.doll.yichen_xixi": "忆宸OVO",
+  "tooltip.yichenovo.doll.yichen_xixi.tip1": "丑的一版",
+  "tooltip.yichenovo.doll.yichen_xixi.tip2": "兄弟你这次是真炸了 版权费够买你命了",
+
+  "block.yichen_ovo.doll.yichen_puxin": "忆宸OVO",
+  "tooltip.yichenovo.doll.yichen_puxin.tip1": "普通且自信版",
+  "tooltip.yichenovo.doll.yichen_puxin.tip2": "六六六一个普信女闹麻了",
+
+  "block.yichen_ovo.doll.yichen_angel": "忆宸OVO",
+  "tooltip.yichenovo.doll.yichen_angel.tip1": "经费爆炸版",
+  "tooltip.yichenovo.doll.yichen_angel.tip2": "你再说给空巷的模型好给忆宸的模型坏试试？",
+
+  "block.yichen_ovo.doll.yichen_chachuqu": "忆宸OVO",
+  "tooltip.yichenovo.doll.yichen_chachuqu.tip1": "叉出去版",
+  "tooltip.yichenovo.doll.yichen_chachuqu.tip2": "0人发现这个叉子是在空巷手里摸的",
+
+  "block.yichen_ovo.doll.yichen_chachuqu2": "忆宸OVO",
+  "tooltip.yichenovo.doll.yichen_chachuqu2.tip1": "宠粉主播叉出去版",
+  "tooltip.yichenovo.doll.yichen_chachuqu2.tip2": "没有三叉戟现成我都搓一个 这还不宠粉？",
+
+  "block.yichen_ovo.doll.kejilao": "科技佬",
+  "tooltip.yichenovo.doll.kejilao.tip1": "播播间的无名科技佬水友",
+
+  "block.yichen_ovo.doll.cold_kejilao": "冷淡的科技佬",
+  "tooltip.yichenovo.doll.cold_kejilao.tip1": "一群冷漠的科技佬",
+
+  "block.yichen_ovo.doll.yichen_zhale": "忆宸OVO",
+  "tooltip.yichenovo.doll.yichen_zhale.tip1": "被水友骑在头上版",
+  "tooltip.yichenovo.doll.yichen_zhale.tip2": "水友是你最亲的人 天天想着叉出去我真得控制你了",
+
+  "block.yichen_ovo.doll.gotopark": "空巷寡淡 gotopark",
+  "tooltip.yichenovo.doll.gotopark.tip1": "兄弟我有一招阴没边得你听不听",
+  "tooltip.yichenovo.doll.gotopark.tip2": "企鹅皇帝 最好的杀手使用者",
+
+  "block.yichen_ovo.doll.gotopark_pt": "空巷寡淡 gotopark",
+  "tooltip.yichenovo.doll.gotopark_pt.tip1": "普通版",
+  "tooltip.yichenovo.doll.gotopark_pt.tip2": "企鹅皇帝 最好的杀手使用者",
+
+  "block.yichen_ovo.doll.howxu": "情绪 HowXu",
+  "tooltip.yichenovo.doll.howxu.tip1": "直播间都是穷哥们 没钱刷礼物",
+  "tooltip.yichenovo.doll.howxu.tip2": "绞尽脑汁编蛋幕逗你开心 你一条都不读 几个意思？",
+  "tooltip.yichenovo.doll.howxu.tip3": "送礼的弹幕一条没落下 你掉钱眼里了？",
+
+  "block.yichen_ovo.doll.bury_love": "无碍 Bury_love",
+  "tooltip.yichenovo.doll.bury_love.tip1": "神秘八眼仔",
+  "tooltip.yichenovo.doll.bury_love.tip2": "我怎么感觉你们都这么有活",
+
+  "block.yichen_ovo.doll.bury_love_pt": "无碍 Bury_love",
+  "tooltip.yichenovo.doll.bury_love_pt.tip1": "普通版",
+  "tooltip.yichenovo.doll.bury_love_pt.tip2": "神秘八眼仔去哪了T_T",
+
+  "block.yichen_ovo.doll.big_yusen": "吾欠森 big_YuSen",
+  "tooltip.yichenovo.doll.big_yusen.tip1": "话说这个吾欠不是读作Wu二声吗",
+  "tooltip.yichenovo.doll.big_yusen.tip2": "可恶的MC剥夺了雨神本来的名字",
+  "tooltip.yichenovo.doll.big_yusen.tip3": "躲猫猫之王",
+
+  "block.yichen_ovo.doll.big_yusen_pt": "吾欠森 big_YuSen",
+  "tooltip.yichenovo.doll.big_yusen_pt.tip1": "普通版",
+  "tooltip.yichenovo.doll.big_yusen_pt.tip2": "躲猫猫之王",
+
+  "block.yichen_ovo.doll.xiao_y3": "t村民 Xiao_Y3",
+  "tooltip.yichenovo.doll.xiao_y3.tip1": "普通版",
+  "tooltip.yichenovo.doll.xiao_y3.tip2": "小Y这个坏真是坏到骨子里了",
+
+  "block.yichen_ovo.doll.big_yusen2": "吾欠森 big_YuSen",
+  "tooltip.yichenovo.doll.big_yusen2.tip1": "动态豪华版",
+  "tooltip.yichenovo.doll.big_yusen2.tip2": "真正的无敌点位大王 你这招真的太阴了",
+
+  "block.yichen_ovo.doll.riji_": "戈兀(日记) riji_",
+  "tooltip.yichenovo.doll.riji_.tip1": "普通但是贴图细节多得爆炸版",
+  "tooltip.yichenovo.doll.riji_.tip2": "为什么每次玩谁是杀手你都在吃面",
+
+  "block.yichen_ovo.doll.yuanxi_19": "源曦 YuanXi_19",
+  "tooltip.yichenovo.doll.yuanxi_19.tip1": "立体耳机版",
+  "tooltip.yichenovo.doll.yuanxi_19.tip2": "大家不要放过这个青年音",
+
+  "block.yichen_ovo.doll.suifengyao": "随风鹞 SuiFengYao",
+  "tooltip.yichenovo.doll.suifengyao.tip1": "普通版",
+  "tooltip.yichenovo.doll.suifengyao.tip2": "建筑师！主城要给忆宸这个魔丸拆完了！",
+
+  "block.yichen_ovo.doll.dchen233": "谶 Dchen233",
+  "tooltip.yichenovo.doll.dchen233.tip1": "普通版",
+  "tooltip.yichenovo.doll.dchen233.tip2": "引导我把这个名字读成蛋宸是吧，你小子这招阴",
+  "tooltip.yichenovo.doll.dchen233.tip3": "忆宸给下车摇搞这么敷衍，懂得都懂",
+
+  "block.yichen_ovo.doll.yujiage": "不想减肥的仡 YUJIAGE",
+  "tooltip.yichenovo.doll.yujiage.tip1": "普通版",
+  "tooltip.yichenovo.doll.yujiage.tip2": "小僵尸是一个真爱粉",
+
+  "block.yichen_ovo.doll.ohana_1234": "等等等等等等风 ohana_1234",
+  "tooltip.yichenovo.doll.ohana_1234.tip1": "普通版",
+  "tooltip.yichenovo.doll.ohana_1234.tip2": "请输入文本",
+
+  "block.yichen_ovo.doll.xingyu233": "不想取名字了 xingyu233",
+  "tooltip.yichenovo.doll.xingyu233.tip1": "普通版",
+  "tooltip.yichenovo.doll.xingyu233.tip2": "默认也是很有品味我说白了",
+
+  "tip.yichen_ovo.crafting_only": "只供合成使用",
+  "tip.yichen_ovo.kejin_only": "你真的忍得住不给忆宸刷一百万吗O.o",
+
+  "item.yichenovo.atmstar.name": "ATM之星",
+  "tip.yichen_ovo.atmstar": "0人提到暴毙的ATM10空岛",
+
+  "item.yichenovo.dengpai": "粉丝团灯牌",
+  "tip.yichen_ovo.dengpai": "你没有刷一百万我鸟你干什么呢？",
+
+  "item.yichenovo.yangyuba": "烤洋芋粑",
+  "tip.yichen_ovo.yangyuba": "还有辣椒面 天菩萨 是谁的最爱？",
+
+  "item.yichenovo.coldegg.name": "冷蛋",
+  "tip.yichen_ovo.coldegg": "一群冷蛋的科技佬",
+
+  "block.yichenovo.crafting": "256K合成单元",
+  "block.yichenovo.ul": "终极输导元件",
+
+  "item.yichenovo.mega_cell": "256M-MEGA存储元件",
+  "tip.yichen_ovo.mega_cell": "最便宜的一集",
+
+  "item.yichenovo.egg_1x": "蛋 1x",
+  "tooltip.yichenovo,egg.level1": "含蛋量: 9",
+
+  "item.yichenovo.egg_2x": "蛋 2x",
+  "tooltip.yichenovo,egg.level2": "含蛋量: 81",
+
+  "item.yichenovo.egg_3x": "蛋 3x",
+  "tooltip.yichenovo,egg.level3": "含蛋量: 729",
+
+  "item.yichenovo.egg_4x": "蛋 4x",
+  "tooltip.yichenovo,egg.level4": "含蛋量: 6,561",
+
+  "item.yichenovo.egg_5x": "蛋 5x",
+  "tooltip.yichenovo,egg.level5": "含蛋量: 59,049",
+
+  "item.yichenovo.egg_6x": "蛋 6x",
+  "tooltip.yichenovo,egg.level6": "含蛋量: 531,441",
+
+  "item.yichenovo.egg_7x": "蛋 7x",
+  "tooltip.yichenovo,egg.level7": "含蛋量: 4,782,969",
+
+  "item.yichenovo.egg_8x": "蛋 8x",
+  "tooltip.yichenovo,egg.level8": "含蛋量: 43,046,721",
+
+  "item.yichenovo.egg_9x": "蛋 9x",
+  "tooltip.yichenovo,egg.level9": "含蛋量: 387,420,489",
+
+  "item.yichenovo.heart": "非洲之心",
+  "tip.yichenovo.heart": "击杀女巫有17%概率掉落",
+
+  "item.yichenovo.tieli": "俩铁粒",
+  "tip.yichenovo.tieli1": "情绪的买命财",
+  "tip.yichenovo.tieli2": "珍爱生命，远离高利贷",
+
+  "item.yichenovo.sword": "寰宇支配之剑",
+  "tooltip.infinity": "无限",
+  "tip.yichenovo.sword.god": "忆宸OVO专属",
+  "tip.yichenovo.sword.nogod1": "愚蠢自大的神 迎接水友的怒火吧",
+  "tip.yichenovo.sword.nogod2": "自私自利的神权统治 到此为止了！",
+  "tip.yichenovo.sword.mianyi": "持有此剑免疫:",
+  "tip.yichenovo.sword.mianyi1": " - yichen_mm的kill,kick,ban-ip,gamemode,clear等指令",
+  "tip.yichenovo.sword.mianyi2": " - yichen_mm的任何形式的伤害",
+  "tip.yichenovo.sword.attack": "持有此剑者:",
+  "tip.yichenovo.sword.attack1": " - 右键秒杀一千格内ID为yichen_mm的生物",
+  "tip.yichenovo.sword.attack2": " - 对yichen_mm造成无条件的秒杀伤害",
+
+  "block.yichenovo.albook": "算法导论",
+  "tip.yichenovo.albook": "天阶功法",
+  "tip.yichenovo.albook2": "忆宸学了这个就能年薪百万住上大别野T_T",
+
+  "item.yichenovo.record_wa": "耳机在听什么歌 心里在想什么人",
+  "item.yichenovo.record_wa.desc": "悲伤旋律忧郁枪 - 999PUNKSTA",
+
+  "item.yichenovo.record_lz": "耳机在听什么歌 心里在想什么人",
+  "item.yichenovo.record_lz.desc": "IVORY TOWER (feat. SennaRin) - 澤野弘之/SennaRin",
+  "tip.yichen_ovo.lz": "楚子航是谁 为什么每次出门都有人这么叫我",
+
+  "item.yichenovo.record_sweet": "嘻嘻",
+  "item.yichenovo.record_sweet.desc": "sweets parade - 花澤香菜",
+  "tip.yichen_ovo.keainie": "女巫跳舞可爱捏 ->_<-",
+
+  "tip.yichen_ovo.xiaomimei": "那我考考你 卡卡西姓什么",
+
+  "item.yichenovo.record_kkx_love": "卡卡西の小迷妹",
+  "item.yichenovo.record_kkx_love.desc": "恋爱循环(卡卡西)(完整版) - 滚丸氏",
+
+  "item.yichenovo.record_kkx_sad": "卡卡西の小迷妹",
+  "item.yichenovo.record_kkx_sad.desc": "我的悲伤是水做的(日语版)(卡卡西) - 滚丸氏",
+
+  "item.yichenovo.record_kkx_frx": "卡卡西の小迷妹",
+  "item.yichenovo.record_kkx_frx.desc": "发如雪(卡卡西) - 滚丸氏",
+
+  "tip.yichenovo.record": "空手右键随机获得一张卡卡西唱片",
+
+  "block.yichenovo.flag": "我为忆宸举大旗",
+
+  "item.yichenovo.spawn": "生成 忆宸OVO",
+  "tip.yichenoco.spawn": "有概率生成一些奇怪的东西...",
+  "entity.yichenovo.yichen.name": "忆宸",
+
+  "item.yichenovo.wyg": "500多了，舞一个#妖狐x仆ss #sweetsparade #lolita #mc",
+  "tip.yichenovo.wuyige": "我不说你一辈子不知道这个东西右键空气有惊喜",
+
+  "tip.yichenovo.no_dance1": "<情绪>因为0人觉得你哥技术力惊为天人，所以插了视频的版本你哥不给n_n",
+  "tip.yichenovo.no_dance2": "<情绪>想看跳舞?你看个蛋!",
+
+  "block.yichenovo.wine": "§c调的§bMojito(莫吉托)",
+  "tip.yichenovo.7+2": "源曦特调顶级8+1",
+
+  "effect.yichenovo.love_cute_budai": "不呆不呆不呆不呆",
+
+  "multiplayer.disconnect.woshinaocanfen": "哥们你忘了这个剑的作者是忆宸的脑残粉了吗n_n",
+
+  "item.yichenovo.budai_paint": "MJ-DD 不呆的画",
+  "tip.yichenovo.budai_paint": "16x16格超大墙画 至少要24x24的空间",
+  "tip.yichenovo.budai_paint1": "守护全世界最好的不呆",
+
+  "item.yichenovo.bxl_paint": "我不行了",
+  "tip.yichenovo.bxl_paint": "8x6格墙画 至少需要10x8的空间",
+
+  "item.yichenovo.eye_paint": "Looking in my eyes!",
+  "tip.yichenovo.eye_paint": "12x6格墙画 至少需要14x8的空间",
+
+  "item.yichenovo.out_paint": "Out!",
+  "tip.yichenovo.out_paint": "8x8格墙画 至少需要10x10的空间",
+
+  "effect.yichenovo.yichen": "来自忆宸的守护"
+}
