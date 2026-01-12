@@ -9,6 +9,8 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Supplier;
@@ -19,14 +21,13 @@ import java.util.function.Supplier;
  * @date: 2026/1/11 13:11
  */
 public class ModBlocks {
-    public static final DeferredRegister<Block> REGISTER = DeferredRegister.Blocks.createBlocks(IHateYiChenDoll.MOD_ID);//.create(Registries.BLOCK, IHateYiChenDoll.MOD_ID);
-    public static final List<DeferredHolder<Block,? extends Block>> BLOCKS = new LinkedList<>();
+    private static final DeferredRegister<Block> REGISTER = DeferredRegister.Blocks.createBlocks(IHateYiChenDoll.MOD_ID);
+    public static final HashMap<String, DeferredHolder<Block,Block>> BLOCKS = new HashMap<>();
 
-    public static final DeferredHolder<Block,? extends Block> YiChen = REGISTER.register("yichen_mm",Doll::new);
-
-    private static DeferredHolder<Block,? extends Block> create(String name,Supplier<? extends Block> sup){
-        var tmp = REGISTER.register(name,sup);
-        BLOCKS.add(tmp);
-        return tmp;
+    public static void register(IEventBus bus, String[] dolls) {
+        Arrays.stream(dolls).forEach(str -> {
+            BLOCKS.put(str,REGISTER.register(str,Doll::new));
+        });
+        REGISTER.register(bus);
     }
 }

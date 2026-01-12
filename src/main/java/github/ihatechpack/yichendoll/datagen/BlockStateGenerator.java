@@ -15,7 +15,10 @@ public class BlockStateGenerator extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        registerSpecialBlock(ModBlocks.YiChen.get(),"block/doll/");
+        ModBlocks.BLOCKS.forEach((str,block)->{
+            registerSpecialBlock(block.get(),"block/doll/");
+        });
+
     }
 
     public void registerSpecialBlock(Block block,String specialLoc){

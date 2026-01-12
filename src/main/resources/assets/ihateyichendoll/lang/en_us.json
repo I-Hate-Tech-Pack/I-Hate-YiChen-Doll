@@ -1,8 +1,7 @@
 {
   "item_group.yichen_ovo.name": "全网最尊重科技佬的直播间",
 
-  "config.jade.plugin_yichenovo.doll_block": "方块玩偶",
-  "config.jade.plugin_yichenovo.doll_entity": "实体玩偶",
+  "config.jade.plugin_ihateyichendoll.doll_block": "方块玩偶",
   "subtitle.yichenovo.block.duck_toy": "玩偶声音",
   "subtitle.yichenovo.block.bsxlyyq": "我绷不住了兄弟",
 

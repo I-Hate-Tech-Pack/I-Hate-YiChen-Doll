@@ -1,10 +1,12 @@
 package github.ihatechpack.yichendoll.common.block;
 
 import com.mojang.serialization.MapCodec;
+import github.ihatechpack.yichendoll.common.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
@@ -38,6 +40,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class Doll extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    // 碰撞箱
     private static final VoxelShape DOLL_SHAPE = Block.box(2.0d, 0.0d, 2.0d, 14.0d, 12.0d, 14.0d);
 
     private static final double PARTICLE_OFFSET_RANGE = 0.25;
@@ -70,24 +73,14 @@ public class Doll extends HorizontalDirectionalBlock implements SimpleWaterlogge
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        // 空手也是可以的
         if (level instanceof ServerLevel serverLevel) {
             // 播放粒子效果
             spawnNoteParticles(serverLevel, hitResult.getBlockPos());
             // 播放音效
             playDollSound(serverLevel, hitResult.getBlockPos());
         }
-        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
-    }
-
-    @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level instanceof ServerLevel serverLevel) {
-            // 播放粒子效果
-            spawnNoteParticles(serverLevel, hitResult.getBlockPos());
-            // 播放音效
-            playDollSound(serverLevel, hitResult.getBlockPos());
-        }
-        return super.useWithoutItem(state, level, pos, player, hitResult);
+        return ItemInteractionResult.sidedSuccess(false);
     }
 
     /**
@@ -96,7 +89,6 @@ public class Doll extends HorizontalDirectionalBlock implements SimpleWaterlogge
     private void spawnNoteParticles(ServerLevel serverLevel, BlockPos blockPos) {
         Vec3 particlePosition = calculateParticlePosition(serverLevel, blockPos);
         float noteColor = calculateNoteColor(serverLevel);
-
         serverLevel.sendParticles(ParticleTypes.NOTE, particlePosition.x(), particlePosition.y(), particlePosition.z(), 0, noteColor, 0, 0, 1);
     }
 
@@ -119,7 +111,7 @@ public class Doll extends HorizontalDirectionalBlock implements SimpleWaterlogge
      */
     protected void playDollSound(ServerLevel serverLevel, BlockPos blockPos) {
         float pitch = BASE_PITCH + serverLevel.random.nextFloat() * PITCH_VARIANCE;
-        // serverLevel.playSound(null, blockPos, ModSounds.DUCK_TOY.get(),SoundSource.BLOCKS, BASE_VOLUME, pitch);
+        serverLevel.playSound(null, blockPos, ModSounds.DOLL.get(), SoundSource.BLOCKS, BASE_VOLUME, pitch);
     }
 
     @Override

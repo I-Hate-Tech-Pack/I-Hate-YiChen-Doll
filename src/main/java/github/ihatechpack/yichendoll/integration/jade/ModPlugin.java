@@ -1,7 +1,6 @@
 package github.ihatechpack.yichendoll.integration.jade;
 
 import github.ihatechpack.yichendoll.common.block.Doll;
-import github.ihatechpack.yichendoll.common.entity.DollEntity;
 import snownee.jade.api.IWailaClientRegistration;
 import snownee.jade.api.IWailaPlugin;
 import snownee.jade.api.WailaPlugin;
@@ -11,6 +10,6 @@ public class ModPlugin implements IWailaPlugin {
     @Override
     public void registerClient(IWailaClientRegistration registration) {
         registration.registerBlockComponent(BlockComponentProvider.INSTANCE, Doll.class);
-        registration.registerEntityComponent(EntityComponentProvider.INSTANCE, DollEntity.class);
+        // registration.registerEntityComponent(EntityComponentProvider.INSTANCE, DollEntity.class);
     }
 }

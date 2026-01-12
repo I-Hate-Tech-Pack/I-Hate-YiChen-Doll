@@ -1,0 +1,9 @@
+{
+  "block.doll": {
+    "category": "neutral",
+    "subtitle": "subtitle.ihateyichendoll.block.doll",
+    "sounds": [
+      "ihateyichendoll:block/doll"
+    ]
+  }
+}

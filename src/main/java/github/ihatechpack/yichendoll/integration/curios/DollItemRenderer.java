@@ -59,7 +59,7 @@ public class DollItemRenderer<T extends LivingEntity, M extends EntityModel<T> &
                 }));
     }
 
-    private <T extends LivingEntity, M extends EntityModel<T>> void rendererDollItem(ItemStack itemStack, T livingEntity, PoseStack poseStack, MultiBufferSource multiBufferSource, int light) {
+    private <LE extends LivingEntity> void rendererDollItem(ItemStack itemStack, LE livingEntity, PoseStack poseStack, MultiBufferSource multiBufferSource, int light) {
         if (itemStack.getItem() instanceof DollItem dollItem) {
             poseStack.pushPose();
             poseStack.scale(1.0f, 1.0f, 1.0f);
