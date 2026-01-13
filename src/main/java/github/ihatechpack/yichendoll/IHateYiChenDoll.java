@@ -8,7 +8,6 @@ import github.ihatechpack.yichendoll.datagen.DataGen;
 import github.ihatechpack.yichendoll.integration.curios.CuriosExtension;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 
 /**
  * @description: TODO
@@ -16,22 +15,16 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
  * @date: 2026/1/11 13:08
  */
 @Mod(IHateYiChenDoll.MOD_ID)
-public class IHateYiChenDoll {
+public final class IHateYiChenDoll {
     public static final String MOD_ID = "ihateyichendoll";
     public static IHateYiChenDoll instance;
 
-    private final String[] dolls = {
-            "yichen_mm",
-            "howxu",
-            "yuanxi_19"
-    };
-
     public IHateYiChenDoll(IEventBus modBus){
-        // 单例模式
+        // single instance mode
         instance = this;
         // common reg
-        ModBlocks.register(modBus,dolls);
-        ModItems.register(modBus,dolls);
+        ModBlocks.register(modBus);
+        ModItems.register(modBus);
         ModCreativeTab.REGISTER.register(modBus);
         ModSounds.REGISTER.register(modBus);
         // client reg
@@ -39,11 +32,7 @@ public class IHateYiChenDoll {
         DataGen.init(modBus);
         // registry jade
         // registry curios
-        modBus.addListener(IHateYiChenDoll::onSetupEvent);
+        modBus.addListener(CuriosExtension::commonSetup);
+        modBus.addListener(CuriosExtension::onDollCurioTick);
     }
-
-    public static void onSetupEvent(FMLCommonSetupEvent event) {
-        event.enqueueWork(CuriosExtension::commonSetup);
-    }
-
 }

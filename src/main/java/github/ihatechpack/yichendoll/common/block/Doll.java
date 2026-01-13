@@ -53,9 +53,16 @@ public class Doll extends HorizontalDirectionalBlock implements SimpleWaterlogge
     private static final float PITCH_VARIANCE = 0.5f;
     private static final float BASE_PITCH = 0.75f;
 
-    public Doll() {
+    private String reg_name;
+
+    public Doll(String reg_name) {
         super(Properties.of().instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.WOOL).strength(0f, 10f).noOcclusion());
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.SOUTH).setValue(WATERLOGGED, false));
+        this.reg_name = reg_name;
+    }
+
+    public String getReg_name() {
+        return reg_name;
     }
 
     @Override
@@ -80,7 +87,7 @@ public class Doll extends HorizontalDirectionalBlock implements SimpleWaterlogge
             // 播放音效
             playDollSound(serverLevel, hitResult.getBlockPos());
         }
-        return ItemInteractionResult.sidedSuccess(false);
+        return ItemInteractionResult.SUCCESS;
     }
 
     /**

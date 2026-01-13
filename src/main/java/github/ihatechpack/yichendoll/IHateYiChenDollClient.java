@@ -12,11 +12,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 public class IHateYiChenDollClient {
 
     public static void init(IEventBus mod){
-        mod.addListener(IHateYiChenDollClient::addEntityLayers);
-    }
-
-    private static void addEntityLayers(EntityRenderersEvent.AddLayers event) {
-        CuriosExtension.addEntityLayers(event);
+        mod.addListener(CuriosExtension::addEntityLayers);
     }
 
 }

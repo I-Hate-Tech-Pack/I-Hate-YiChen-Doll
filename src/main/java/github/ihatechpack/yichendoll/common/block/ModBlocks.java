@@ -1,6 +1,7 @@
 package github.ihatechpack.yichendoll.common.block;
 
 import github.ihatechpack.yichendoll.IHateYiChenDoll;
+import github.ihatechpack.yichendoll.Res;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -9,10 +10,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Supplier;
 
 /**
@@ -22,11 +20,20 @@ import java.util.function.Supplier;
  */
 public class ModBlocks {
     private static final DeferredRegister<Block> REGISTER = DeferredRegister.Blocks.createBlocks(IHateYiChenDoll.MOD_ID);
-    public static final HashMap<String, DeferredHolder<Block,Block>> BLOCKS = new HashMap<>();
+    public static final LinkedHashMap<String, DeferredHolder<Block,Block>> BLOCKS = new LinkedHashMap<>();
 
-    public static void register(IEventBus bus, String[] dolls) {
-        Arrays.stream(dolls).forEach(str -> {
-            BLOCKS.put(str,REGISTER.register(str,Doll::new));
+    public static void register(IEventBus bus) {
+        Arrays.stream(Res.howxu).forEach(str -> {
+            BLOCKS.put(str,REGISTER.register(str,() -> new Doll(str)));
+        });
+        Arrays.stream(Res.hualeibao).forEach(str -> {
+            BLOCKS.put(str,REGISTER.register(str,() -> new Doll(str)));
+        });
+        Arrays.stream(Res.yichens).forEach(str -> {
+            BLOCKS.put(str,REGISTER.register(str,() -> new Doll(str)));
+        });
+        Arrays.stream(Res.tech_guys).forEach(str -> {
+            BLOCKS.put(str,REGISTER.register(str,() -> new Doll(str)));
         });
         REGISTER.register(bus);
     }

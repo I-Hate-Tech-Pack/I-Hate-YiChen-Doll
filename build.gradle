@@ -127,11 +127,15 @@ dependencies {
     // sodium
     runtimeOnly "curse.maven:sodium-394468:6382651"
     // modern-ui
-    // testRuntimeOnly "curse.maven:modern-ui-352491:6956436"
+    // runtimeOnly "curse.maven:modern-ui-352491:6956436"
     // curios api
     implementation "curse.maven:curios-309927:6529130"
     // jade
     implementation "curse.maven:jade-324717:7428884"
+    // prism
+    // implementation "curse.maven:prism-lib-638111:6372979"
+    // jei
+    runtimeOnly "curse.maven:jei-238222:7391682"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

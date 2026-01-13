@@ -17,7 +17,7 @@ public class ItemModelGenerator extends ItemModelProvider {
     @Override
     protected void registerModels() {
         ModItems.ITEMS.forEach((str,item)->{
-            registerSpecialBlockItem(item.get(),"block/doll/");
+            registerSpecialBlockItem(item.get(),"block/");
         });
     }
 

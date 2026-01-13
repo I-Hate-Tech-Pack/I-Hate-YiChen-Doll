@@ -1,6 +1,7 @@
 package github.ihatechpack.yichendoll.integration.curios;
 
 import github.ihatechpack.yichendoll.Res;
+import github.ihatechpack.yichendoll.api.ModEvent;
 import github.ihatechpack.yichendoll.common.item.DollItem;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.resources.PlayerSkin;
@@ -11,6 +12,7 @@ import top.theillusivec4.curios.api.CuriosApi;
 
 public class CuriosCompatInner {
     @OnlyIn(Dist.CLIENT)
+    @ModEvent(side = ModEvent.Side.ClientSide)
     static void registerRenderer(EntityRenderersEvent.AddLayers event) {
         if (event.getSkin(PlayerSkin.Model.WIDE) instanceof PlayerRenderer playerRenderer) {
             playerRenderer.addLayer(new DollItemRenderer<>(playerRenderer, event.getContext().getItemInHandRenderer()));

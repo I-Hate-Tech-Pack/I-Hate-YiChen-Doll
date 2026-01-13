@@ -23,8 +23,10 @@ public class DataGen {
         var generator = event.getGenerator();
         var existingFileHelper = event.getExistingFileHelper();
         var pack = generator.getPackOutput();
+        var register = event.getLookupProvider();
 
         generator.addProvider(event.includeClient(), new BlockStateGenerator(pack, existingFileHelper));
         generator.addProvider(event.includeClient(),new ItemModelGenerator(pack,existingFileHelper));
+        generator.addProvider(event.includeClient(),new RecipesGenerator(pack,register));
     }
 }
