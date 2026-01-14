@@ -33,6 +33,6 @@ public final class IHateYiChenDoll {
         // registry jade
         // registry curios
         modBus.addListener(CuriosExtension::commonSetup);
-        modBus.addListener(CuriosExtension::onDollCurioTick);
+        modBus.addListener(CuriosExtension::registerDollCapabilities);
     }
 }
