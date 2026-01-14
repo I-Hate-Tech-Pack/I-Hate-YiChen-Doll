@@ -1,5 +1,6 @@
 package github.ihatechpack.yichendoll.integration.curios;
 
+import github.ihatechpack.yichendoll.IHateYiChenDoll;
 import github.ihatechpack.yichendoll.Res;
 import github.ihatechpack.yichendoll.api.ModEvent;
 import github.ihatechpack.yichendoll.common.item.DollItem;
@@ -36,83 +37,128 @@ public class CuriosCompatInner {
             playerRenderer.addLayer(new DollItemRenderer<>(playerRenderer, event.getContext().getItemInHandRenderer()));
         }
     }
+
     @ModEvent(side = ModEvent.Side.ServerSide)
     static void registerDollItemPredicate() {
-        CuriosApi.registerCurioPredicate(Res.rl( "item_doll"),
+        CuriosApi.registerCurioPredicate(Res.rl("item_doll"),
                 slotResult -> slotResult.stack().getItem() instanceof DollItem);
     }
 
-    static void registerDollItemCurioTick(RegisterCapabilitiesEvent event){
+    static void registerDollItemCurioTick(RegisterCapabilitiesEvent event) {
         // 注册capability
-        event.registerItem(CuriosCapability.ITEM,(stack, context)-> new ICurio() {
+        event.registerItem(CuriosCapability.ITEM, (stack, context) -> new ICurio() {
             @Override
             public ItemStack getStack() {
                 return stack;
             }
 
             @Override
-            public void curioTick(SlotContext slotContext) {
-                if (slotContext.entity() instanceof Player player){
+            public void onEquip(SlotContext slotContext, ItemStack prevStack) {
+                ICurio.super.onEquip(slotContext, prevStack);
+                if (slotContext.entity() instanceof Player player) {
                     // 飞行能力 这里到时候和I Hate API接入一下
                     var fly = player.getAttribute(NeoForgeMod.CREATIVE_FLIGHT);
-                    if (fly != null && !fly.hasModifier(Res.rl("flight"))) // 有这个modifier说明已经开启Doll的飞行了 就不需要额外加AttributeModifier
-                        fly.addPermanentModifier(new AttributeModifier(Res.rl("flight"),1.0f, AttributeModifier.Operation.ADD_VALUE)); // >0的值意味可以飞行
+                    if (fly != null) {
+                        AttributeModifier modifier;
+                        if ((modifier = fly.getModifier(Res.rl("flight"))) != null) {
+                            fly.addOrUpdateTransientModifier(new AttributeModifier(Res.rl("flight"), modifier.amount() + 1.0f, AttributeModifier.Operation.ADD_VALUE)); // >0的值意味可以飞行
+                        } else {
+                            fly.addOrUpdateTransientModifier(new AttributeModifier(Res.rl("flight"), 1.0f, AttributeModifier.Operation.ADD_VALUE)); // >0的值意味可以飞行
+                        }
+                        IHateYiChenDoll.LOGGER.info(player.getAttribute(NeoForgeMod.CREATIVE_FLIGHT).getModifiers().toString());
+                        // >0的值意味可以飞行
+                        // 有这个modifier说明已经开启Doll的飞行了 就不需要额外加AttributeModifier
+                    }
+                }
+            }
+
+            @Override
+            public void curioTick(SlotContext slotContext) {
+                if (slotContext.entity() instanceof Player player) {
                     // 夜视能力
                     keepEffect(player, MobEffects.NIGHT_VISION);
                     // 抗火能力
-                    keepEffect(player,MobEffects.FIRE_RESISTANCE);
+                    keepEffect(player, MobEffects.FIRE_RESISTANCE);
                 }
             }
+
             @Override
             public void onUnequip(SlotContext slotContext, ItemStack newStack) {
                 ICurio.super.onUnequip(slotContext, newStack);
-                if (slotContext.entity() instanceof Player player){
+                if (slotContext.entity() instanceof Player player) {
                     var fly = player.getAttribute(NeoForgeMod.CREATIVE_FLIGHT);
-                    if (fly != null) fly.removeModifier(Res.rl("flight"));
+                    if (fly != null) {
+                        AttributeModifier modifier;
+                        // 这个null判断多余了其实
+                        if ((modifier = fly.getModifier(Res.rl("flight"))) != null) {
+                            fly.addOrUpdateTransientModifier(new AttributeModifier(Res.rl("flight"), modifier.amount() - 1.0f, AttributeModifier.Operation.ADD_VALUE)); // >0的值意味可以飞行
+                            if (Objects.requireNonNull(fly.getModifier(Res.rl("flight"))).amount() == 0.0f) fly.removeModifier(Res.rl("flight"));
+                        }
+                    }
+                    IHateYiChenDoll.LOGGER.info(player.getAttribute(NeoForgeMod.CREATIVE_FLIGHT).getModifiers().toString());
                 }
             }
         }, ModItems.ITEMS.get("howxu").get()); // howxu玩偶
-        event.registerItem(CuriosCapability.ITEM,(stack,context)-> new ICurio() {
+        event.registerItem(CuriosCapability.ITEM, (stack, context) -> new ICurio() {
             @Override
             public ItemStack getStack() {
                 return stack;
             }
+
             @Override
-            public void curioTick(SlotContext slotContext) {
-                if (slotContext.entity() instanceof Player player){
+            public void onEquip(SlotContext slotContext, ItemStack prevStack) {
+                ICurio.super.onEquip(slotContext, prevStack);
+                if (slotContext.entity() instanceof Player player) {
                     // 飞行能力 这里到时候和I Hate API接入一下
                     var fly = player.getAttribute(NeoForgeMod.CREATIVE_FLIGHT);
-                    if (fly != null && !fly.hasModifier(Res.rl("flight")))
-                        fly.addPermanentModifier(new AttributeModifier(Res.rl("flight"),1.0f, AttributeModifier.Operation.ADD_VALUE)); // >0的值意味可以飞行
+                    if (fly != null) {
+                        AttributeModifier modifier;
+                        if ((modifier = fly.getModifier(Res.rl("flight"))) != null) {
+                            fly.addOrUpdateTransientModifier(new AttributeModifier(Res.rl("flight"), modifier.amount() + 1.0f, AttributeModifier.Operation.ADD_VALUE)); // >0的值意味可以飞行
+                        } else {
+                            fly.addOrUpdateTransientModifier(new AttributeModifier(Res.rl("flight"), 1.0f, AttributeModifier.Operation.ADD_VALUE)); // >0的值意味可以飞行
+                        }
+                        IHateYiChenDoll.LOGGER.info(player.getAttribute(NeoForgeMod.CREATIVE_FLIGHT).getModifiers().toString());
+                    }
                 }
             }
+
             @Override
             public void onUnequip(SlotContext slotContext, ItemStack newStack) {
                 ICurio.super.onUnequip(slotContext, newStack);
-                if (slotContext.entity() instanceof Player player){
+                if (slotContext.entity() instanceof Player player) {
                     var fly = player.getAttribute(NeoForgeMod.CREATIVE_FLIGHT);
-                    if (fly != null) fly.removeModifier(Res.rl("flight"));
+                    if (fly != null) {
+                        AttributeModifier modifier;
+                        // 这个null判断多余了其实
+                        if ((modifier = fly.getModifier(Res.rl("flight"))) != null) {
+                            fly.addOrUpdateTransientModifier(new AttributeModifier(Res.rl("flight"), modifier.amount() - 1.0f, AttributeModifier.Operation.ADD_VALUE)); // >0的值意味可以飞行
+                            if (Objects.requireNonNull(fly.getModifier(Res.rl("flight"))).amount() == 0.0f) fly.removeModifier(Res.rl("flight"));
+                        }
+                    }
+                    IHateYiChenDoll.LOGGER.info(player.getAttribute(NeoForgeMod.CREATIVE_FLIGHT).getModifiers().toString());
                 }
             }
-        },ModItems.ITEMS.get("yichen_angel").get()); // 天使玩偶
-        event.registerItem(CuriosCapability.ITEM,(stack,context)-> new ICurio() {
+        }, ModItems.ITEMS.get("yichen_angel").get()); // 天使玩偶
+        event.registerItem(CuriosCapability.ITEM, (stack, context) -> new ICurio() {
             @Override
             public ItemStack getStack() {
                 return stack;
             }
+
             @Override
             public void curioTick(SlotContext slotContext) {
-                if (slotContext.entity() instanceof Player player){
-                    keepEffect(player,MobEffects.DAMAGE_BOOST);
+                if (slotContext.entity() instanceof Player player) {
+                    keepEffect(player, MobEffects.DAMAGE_BOOST);
                 }
             }
-        },ModItems.ITEMS.get("yichen_chachuqu").get()); // 叉出去玩偶
+        }, ModItems.ITEMS.get("yichen_chachuqu").get()); // 叉出去玩偶
     }
 
-    private static void keepEffect(Player player, Holder<MobEffect> effectHolder){
+    private static void keepEffect(Player player, Holder<MobEffect> effectHolder) {
         if (!player.hasEffect(effectHolder.getDelegate()))
-            player.addEffect(new MobEffectInstance(effectHolder,1200,255,true,false));
-        if (Objects.requireNonNull(player.getEffect(effectHolder.getDelegate())).getDuration() < 40)
-            player.addEffect(new MobEffectInstance(effectHolder,1200,255,true,false));
+            player.addEffect(new MobEffectInstance(effectHolder, 12000, 255, true, false));
+        if (Objects.requireNonNull(player.getEffect(effectHolder.getDelegate())).getDuration() < 400)
+            player.addEffect(new MobEffectInstance(effectHolder, 12000, 255, true, false));
     }
 }

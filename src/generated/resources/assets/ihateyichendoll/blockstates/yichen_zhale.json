@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,waterlogged=false": {
+      "model": "ihateyichendoll:block/yichen_zhale",
+      "y": 90
+    },
+    "facing=east,waterlogged=true": {
+      "model": "ihateyichendoll:block/yichen_zhale",
+      "y": 90
+    },
+    "facing=north,waterlogged=false": {
+      "model": "ihateyichendoll:block/yichen_zhale"
+    },
+    "facing=north,waterlogged=true": {
+      "model": "ihateyichendoll:block/yichen_zhale"
+    },
+    "facing=south,waterlogged=false": {
+      "model": "ihateyichendoll:block/yichen_zhale",
+      "y": 180
+    },
+    "facing=south,waterlogged=true": {
+      "model": "ihateyichendoll:block/yichen_zhale",
+      "y": 180
+    },
+    "facing=west,waterlogged=false": {
+      "model": "ihateyichendoll:block/yichen_zhale",
+      "y": 270
+    },
+    "facing=west,waterlogged=true": {
+      "model": "ihateyichendoll:block/yichen_zhale",
+      "y": 270
+    }
+  }
+}

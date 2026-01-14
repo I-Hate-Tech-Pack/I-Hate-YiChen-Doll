@@ -1,5 +1,6 @@
 package github.ihatechpack.yichendoll;
 
+import com.mojang.logging.LogUtils;
 import github.ihatechpack.yichendoll.common.ModCreativeTab;
 import github.ihatechpack.yichendoll.common.ModSounds;
 import github.ihatechpack.yichendoll.common.block.ModBlocks;
@@ -8,6 +9,7 @@ import github.ihatechpack.yichendoll.datagen.DataGen;
 import github.ihatechpack.yichendoll.integration.curios.CuriosExtension;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
+import org.slf4j.Logger;
 
 /**
  * @description: TODO
@@ -17,6 +19,7 @@ import net.neoforged.fml.common.Mod;
 @Mod(IHateYiChenDoll.MOD_ID)
 public final class IHateYiChenDoll {
     public static final String MOD_ID = "ihateyichendoll";
+    public static final Logger LOGGER = LogUtils.getLogger();
     public static IHateYiChenDoll instance;
 
     public IHateYiChenDoll(IEventBus modBus){
