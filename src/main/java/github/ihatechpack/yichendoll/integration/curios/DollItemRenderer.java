@@ -14,12 +14,15 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
 /**
  * 依据原版{@link CustomHeadLayer CustomHeadLayer}书写而来，仅供玩家渲染布偶使用
  */
+@OnlyIn(Dist.CLIENT)
 public class DollItemRenderer<T extends LivingEntity, M extends EntityModel<T> & HeadedModel> extends RenderLayer<T, M> {
     private final ItemInHandRenderer itemInHandRenderer;
 

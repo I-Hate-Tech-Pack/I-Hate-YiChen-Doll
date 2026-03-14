@@ -4,7 +4,7 @@ import github.ihatechpack.yichendoll.IHateYiChenDoll;
 import github.ihatechpack.yichendoll.Res;
 import github.ihatechpack.yichendoll.api.ModEvent;
 import github.ihatechpack.yichendoll.common.item.DollItem;
-import github.ihatechpack.yichendoll.common.item.ModItems;
+import github.ihatechpack.yichendoll.registry.ModItems;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.core.Holder;

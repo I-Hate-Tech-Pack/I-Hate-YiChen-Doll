@@ -4,7 +4,7 @@ import github.ihatechpack.yichendoll.IHateYiChenDoll;
 import github.ihatechpack.yichendoll.Res;
 import github.ihatechpack.yichendoll.common.block.Doll;
 import github.ihatechpack.yichendoll.common.item.DollItem;
-import github.ihatechpack.yichendoll.common.item.ModItems;
+import github.ihatechpack.yichendoll.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;

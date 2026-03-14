@@ -11,6 +11,7 @@ public class Res {
     // 批量注册玩偶
     public static final String[] howxu = {"howxu"};
     public static final String[] hualeibao = {"yuanxi_19","dchen233"};
+    public static final String[] specials = {"aluo","qingjiao","budai","yichen_winter"};
     public static final String[] yichens = {
             "yichen_angel",
             "yichen_chachuqu",

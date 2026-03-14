@@ -1,7 +1,7 @@
 package github.ihatechpack.yichendoll.datagen;
 
 import github.ihatechpack.yichendoll.IHateYiChenDoll;
-import github.ihatechpack.yichendoll.common.item.ModItems;
+import github.ihatechpack.yichendoll.registry.ModItems;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;

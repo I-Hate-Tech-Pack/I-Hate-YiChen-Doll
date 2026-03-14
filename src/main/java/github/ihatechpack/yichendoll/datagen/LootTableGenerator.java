@@ -1,6 +1,6 @@
 package github.ihatechpack.yichendoll.datagen;
 
-import github.ihatechpack.yichendoll.common.block.ModBlocks;
+import github.ihatechpack.yichendoll.registry.ModBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;

@@ -1,7 +1,10 @@
 package github.ihatechpack.yichendoll;
 
 import github.ihatechpack.yichendoll.integration.curios.CuriosExtension;
-import net.neoforged.bus.api.IEventBus;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
 /**
@@ -9,10 +12,13 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
  * @author: HowXu
  * @date: 2026/1/11 14:31
  */
+@Mod(value = IHateYiChenDoll.MOD_ID,dist = Dist.CLIENT)
+@EventBusSubscriber(modid = IHateYiChenDoll.MOD_ID,value = Dist.CLIENT) // 分离注册
 public class IHateYiChenDollClient {
 
-    public static void init(IEventBus mod){
-        mod.addListener(CuriosExtension::addEntityLayers);
+    @SubscribeEvent
+    public static void onCuriosRenderRegistry(EntityRenderersEvent.AddLayers event){
+        CuriosExtension.addEntityLayers(event);
     }
 
 }

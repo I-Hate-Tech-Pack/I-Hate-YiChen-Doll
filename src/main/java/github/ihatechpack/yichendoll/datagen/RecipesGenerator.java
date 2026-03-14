@@ -2,14 +2,13 @@ package github.ihatechpack.yichendoll.datagen;
 
 import github.ihatechpack.yichendoll.IHateYiChenDoll;
 import github.ihatechpack.yichendoll.Res;
-import github.ihatechpack.yichendoll.common.item.ModItems;
+import github.ihatechpack.yichendoll.registry.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
@@ -47,7 +46,12 @@ public class RecipesGenerator extends RecipeProvider {
             Items.SAND,
             Items.EMERALD,
             Items.REDSTONE,
-            Items.REDSTONE_BLOCK
+            Items.REDSTONE_BLOCK,
+
+            ModItems.ITEMS.get("yichen_mm").get(),
+            ModItems.ITEMS.get("yuanxi_19").get(),
+            ModItems.ITEMS.get("howxu").get(),
+            Items.LEATHER
     };
     private int i = 0;
 

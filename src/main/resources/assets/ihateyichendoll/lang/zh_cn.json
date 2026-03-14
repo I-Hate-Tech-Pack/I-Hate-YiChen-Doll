@@ -44,11 +44,15 @@
   "item.ihateyichendoll.doll_tip.yichen_zhale.0": "低人一等版",
   "item.ihateyichendoll.doll_tip.yichen_zhale.1": "据说做完这个情绪跑国外躲了一阵子",
 
+  "block.ihateyichendoll.yichen_winter": "忆宸 yichen_mm",
+  "item.ihateyichendoll.doll_tip.yichen_winter.0": "冬日限定",
+  "item.ihateyichendoll.doll_tip.yichen_winter.1": "比冬天的雪先到的是手心的温度",
+
   "block.ihateyichendoll.gotopark": "空巷寡淡 gotopark",
   "item.ihateyichendoll.doll_tip.gotopark.0": "我是空巷 我喜欢看会员空间",
 
   "block.ihateyichendoll.howxu": "情绪 howxu",
-  "item.ihateyichendoll.doll_tip.howxu.1": "唯一金色品质 世界的终点",
+  "item.ihateyichendoll.doll_tip.howxu.1": "我说我是真爱粉怎么没人信呢 我问问",
   "item.ihateyichendoll.doll_tip.howxu.0": "神",
   
   "block.ihateyichendoll.bury_love": "无碍 Bury_love",
@@ -61,7 +65,7 @@
   "item.ihateyichendoll.doll_tip.riji_.0": "至今粉丝灯牌都是灭的(摊手)",
 
   "block.ihateyichendoll.yuanxi_19": "源曦 YuanXi_19",
-  "item.ihateyichendoll.doll_tip.yuanxi_19.0": "花蕾包双子星 攻略组成员 经常打白工",
+  "item.ihateyichendoll.doll_tip.yuanxi_19.0": "千载独步 唯公一人",
 
   "block.ihateyichendoll.suifengyao": "随风鹞 SuiFengYao",
   "item.ihateyichendoll.doll_tip.suifengyao.0": "神秘老Old 开服级粉丝",
@@ -70,5 +74,17 @@
   "item.ihateyichendoll.doll_tip.dchen233.0": "艺术生啊 要不要考虑加入花蕾包当美工呀n_n",
 
   "block.ihateyichendoll.ohana_1234": "等等等等等等风 ohana_1234",
-  "item.ihateyichendoll.doll_tip.ohana_1234.0": "请输入文本"
+  "item.ihateyichendoll.doll_tip.ohana_1234.0": "请输入文本",
+
+  "block.ihateyichendoll.aluo": "啊落",
+  "item.ihateyichendoll.doll_tip.aluo.0": "特邀嘉宾",
+  "item.ihateyichendoll.doll_tip.aluo.1": "再说啊落的不是我们i落给你这个叫忆宸的冲了",
+
+  "block.ihateyichendoll.qingjiao": "青椒酱",
+  "item.ihateyichendoll.doll_tip.qingjiao.0": "特邀嘉宾",
+  "item.ihateyichendoll.doll_tip.qingjiao.1": "青椒酱 (๑•̌.•๑)  かわいい  >_<",
+
+  "block.ihateyichendoll.budai": "不呆",
+  "item.ihateyichendoll.doll_tip.budai.0": "BEST",
+  "item.ihateyichendoll.doll_tip.budai.1": "没有你的宇宙才是太空"
 }

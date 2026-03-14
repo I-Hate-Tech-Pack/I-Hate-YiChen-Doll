@@ -18,6 +18,7 @@ public class CuriosExtension {
     }
 
     // 注册和调用提前使用IS_LOADED分离 单独调用这个类不会在Curios没加载时报错Class Not Found
+
     @OnlyIn(Dist.CLIENT)
     @ModEvent(side = ModEvent.Side.ClientSide)
     public static void addEntityLayers(EntityRenderersEvent.AddLayers event) {
