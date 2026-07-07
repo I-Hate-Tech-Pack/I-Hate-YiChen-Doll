@@ -70,5 +70,9 @@
   "item.ihateyichendoll.doll_tip.dchen233.0": "An art student, huh? Ever considered joining Hualei Bag as a designer? n_n",
 
   "block.ihateyichendoll.ohana_1234": "Ohana_1234",
-  "item.ihateyichendoll.doll_tip.ohana_1234.0": "Please enter text"
+  "item.ihateyichendoll.doll_tip.ohana_1234.0": "Please enter text",
+
+  "block.ihateyichendoll.m_xm_": "M_XM_ Mimi",
+  "item.ihateyichendoll.doll_tip.m_xm_.0": "Always searching, never settling",
+  "item.ihateyichendoll.doll_tip.m_xm_.1": "Input now"
 }

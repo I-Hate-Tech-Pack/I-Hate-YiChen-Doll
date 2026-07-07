@@ -86,5 +86,9 @@
 
   "block.ihateyichendoll.budai": "不呆",
   "item.ihateyichendoll.doll_tip.budai.0": "BEST",
-  "item.ihateyichendoll.doll_tip.budai.1": "没有你的宇宙才是太空"
+  "item.ihateyichendoll.doll_tip.budai.1": "没有你的宇宙才是太空",
+
+  "block.ihateyichendoll.m_xm_": "觅觅子 M_XM_",
+  "item.ihateyichendoll.doll_tip.m_xm_.0": "生物钟是一个Hamburger",
+  "item.ihateyichendoll.doll_tip.m_xm_.1": "取名字也是"
 }

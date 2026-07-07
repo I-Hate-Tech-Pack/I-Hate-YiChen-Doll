@@ -60,6 +60,7 @@ public class RecipesGenerator extends RecipeProvider {
     protected void buildRecipes(RecipeOutput p_recipeOutput, HolderLookup.Provider holderLookup) {
         super.buildRecipes(p_recipeOutput, holderLookup);
         ModItems.ITEMS.forEach((name,holder)->{
+            if ("m_xm_".equals(name)) return;
             ShapedRecipeBuilder.shaped(RecipeCategory.MISC, holder.get())
                     .group(IHateYiChenDoll.MOD_ID)
                     .pattern("EAE")
@@ -73,5 +74,15 @@ public class RecipesGenerator extends RecipeProvider {
                     .save(p_recipeOutput, Res.rl(name));;
                     i++;
         });
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ITEMS.get("m_xm_").get())
+                .group(IHateYiChenDoll.MOD_ID)
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:wool"))))
+                .define('B', Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:flowers"))))
+                .define('C', Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:planks"))))
+                .unlockedBy("has_yuanxi_19", has(ModItems.ITEMS.get("yuanxi_19").get()))
+                .save(p_recipeOutput, Res.rl("m_xm_"));
     }
 }
